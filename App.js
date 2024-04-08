@@ -1,11 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {useRef, useEffect} from 'react';
+import { StyleSheet, Text, View, Animated } from 'react-native';
 
 export default function App() {
+  const moonAnimation = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(moonAnimation, {
+      toValue: 1,
+    }).start();
+  }, [moonAnimation]);
+
+  const moonLeft = moonAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '79.5%']
+  });
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text>Eclipse 2024 🌒</Text>
     </View>
   );
 }
